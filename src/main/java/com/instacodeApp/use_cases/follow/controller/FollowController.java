@@ -62,7 +62,16 @@ public class FollowController {
         return new ResponseEntity<>(this.followService.updateFollow(followDto, id), HttpStatus.OK);
     }
 
+    @PostMapping("/deleteFollow")
+    public void deleteFollow(@RequestBody FollowDto followDto){
+        List<FollowDto> list = this.followService.getFollowsByFollowerUserName(followDto.followerUserName);
+        for (FollowDto dto : list) {
+            if (followDto.followedUserName.equals(dto.followedUserName)) {
+                deleteFollowById(dto.id);
+            }
+        }
 
+    }
     @DeleteMapping("/{id}")
     public void deleteFollowById(@PathVariable(name = "id") long id){
         this.followService.deleteFollowById(id);
