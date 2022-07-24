@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin
@@ -37,6 +38,8 @@ public class PostController {
 
     @GetMapping
     public List<PostDto> getAllPosts(){
+        List<PostDto> result = this.postService.getAllPosts();
+        Collections.reverse(result);
         return this.postService.getAllPosts();
     }
 
