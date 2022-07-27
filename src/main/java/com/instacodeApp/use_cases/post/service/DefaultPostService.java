@@ -50,6 +50,7 @@ public class DefaultPostService implements PostService{
         post.setCaption(postDto.getCaption());
         post.setCode(postDto.getCode());
         post.setLanguage(postDto.getLanguage());
+        post.setLikeCount(postDto.getLikeCount());
 
         Post updatedPost = postRepository.save(post);
         return mapToDto(updatedPost);
