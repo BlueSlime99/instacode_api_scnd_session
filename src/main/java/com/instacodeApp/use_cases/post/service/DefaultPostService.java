@@ -9,16 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class DefaultPostService implements PostService{
+public class DefaultPostService implements PostService {
 
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public DefaultPostService(PostRepository postRepository,ModelMapper modelMapper) {
+    public DefaultPostService(PostRepository postRepository, ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.modelMapper = modelMapper;
     }
@@ -26,8 +27,12 @@ public class DefaultPostService implements PostService{
 
     @Override
     public PostDto createPost(PostDto postDto) {
+        if (postDto.forkedPost != null && !postRepository.existsById(postDto.forkedPost))
+            throw new IllegalArgumentException("");
+
         Post post = mapToEntity(postDto);
         Post newPost = postRepository.save(post);
+
         return mapToDto(newPost);
     }
 
@@ -50,7 +55,6 @@ public class DefaultPostService implements PostService{
         post.setCaption(postDto.getCaption());
         post.setCode(postDto.getCode());
         post.setLanguage(postDto.getLanguage());
-        post.setLikeCount(postDto.getLikeCount());
 
         Post updatedPost = postRepository.save(post);
         return mapToDto(updatedPost);
@@ -62,17 +66,11 @@ public class DefaultPostService implements PostService{
         postRepository.delete(post);
     }
 
-    @Override
-    public List<PostDto> getPostsByName(String username) {
-        List<Post> posts = this.postRepository.findPostsByName(username);
-        return posts.stream().map(post -> mapToDto(post)).collect(Collectors.toList());
-    }
-
-    private PostDto mapToDto(Post post){
+    private PostDto mapToDto(Post post) {
         return modelMapper.map(post, PostDto.class);
     }
 
-    private Post mapToEntity(PostDto postDto){
+    private Post mapToEntity(PostDto postDto) {
         return modelMapper.map(postDto, Post.class);
     }
 

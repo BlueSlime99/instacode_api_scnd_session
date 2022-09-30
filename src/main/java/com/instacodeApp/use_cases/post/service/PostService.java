@@ -9,5 +9,4 @@ public interface PostService {
     PostDto getPostById(long id);
     PostDto updatePost(PostDto postDto, long id);
     void deletePostById(long id);
-    List<PostDto> getPostsByName(String username);
 }

@@ -61,17 +61,6 @@ public class DefaultUserService implements UserService {
 
     }
 
-    @Override
-    public UserDto getByUsername(String username) {
-        User user = this.userRepository.getByUsername(username);
-        return mapToDto(user);    }
-
-    /*@Override
-    public UserDto getUserByName(String username) {
-        User user = this.userRepository.getUserByName(username);
-        return mapToDto(user);
-    }*/
-
 
     private UserDto mapToDto(User user){
         return modelMapper.map(user, UserDto.class);

@@ -28,7 +28,7 @@ public class Post {
     @Column(name = "caption", nullable = false)
     private String caption;
 
-    @Column(name = "code", nullable = false, length = 65555)
+    @Column(name = "code", nullable = false)
     private String code;
 
     @Column(name = "language", nullable = false)
@@ -36,6 +36,9 @@ public class Post {
 
     @Column(name = "likes")
     private int likeCount;
+
+    @Column(name = "forked_post")
+    private Long forkedPost;
 
     @OneToMany(mappedBy = "post")
     private Set<Comment> comments = new HashSet<>();

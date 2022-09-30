@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -31,16 +31,6 @@ public class UserController {
     @GetMapping
     public List<UserDto> getAllUsers(){
         return this.userService.getAllUsers();
-    }
-
-    /*@GetMapping("/getUserByName/{username}")
-    public ResponseEntity<UserDto> getUserByName(@PathVariable(name="username") String username){
-        return new ResponseEntity<>(this.userService.getUserByName(username), HttpStatus.OK);
-    }*/
-
-    @GetMapping("/getByUsername/{username}")
-    public ResponseEntity<UserDto> getByUsername(@PathVariable(name="username")String username){
-        return new ResponseEntity<>(this.userService.getByUsername(username),HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

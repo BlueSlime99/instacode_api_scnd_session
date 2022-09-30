@@ -14,6 +14,7 @@ public class PostDto {
     public String code;
     public String language;
     public int likeCount;
+    public Long forkedPost;
     public Set<CommentDto> comments;
 
 }
